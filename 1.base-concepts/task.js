@@ -1,12 +1,9 @@
 function solveEquation(a, b, c) {
-  let arr;
+  let arr = [];
 
   const discriminant = Math.pow(b, 2) - 4 * a * c;
 
-  if (discriminant < 0) {
-    arr = [];
-    return arr;
-  } else if (discriminant === 0) {
+  if (discriminant === 0) {
     let radix = -b / (2 * a);
     arr = [radix];
     return arr;
