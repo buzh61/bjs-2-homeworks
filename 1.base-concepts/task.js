@@ -1,13 +1,35 @@
 function solveEquation(a, b, c) {
   let arr;
-  // код для задачи №1 писать здесь
+
+  const discriminant = Math.pow(b, 2) - 4 * a * c;
+
+  if (discriminant < 0) {
+    arr = [];
+    return arr;
+  } else if (discriminant === 0) {
+    let radix = -b / (2 * a);
+    arr = [radix];
+    return arr;
+  } else if (discriminant > 0) {
+    firstEquation = Math.round((-b + Math.sqrt(b) ) / (2 * a));
+    secondEquation = Math.round((-b - Math.sqrt(b) ) / (2 * a));
+    arr = [firstEquation, secondEquation];
+    return arr;
+  }
   return arr; // array
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
   let totalAmount;
+  let dateFrom = new Date();
+  let dateTo = new Date(date);
+  let rateCoefficient = (percent / 12) / 100;
+  const creditSum = amount - contribution;
+  const creditDate = dateTo.getMonth() - dateFrom.getMonth() + 
+  (12 * (dateTo.getFullYear() - dateFrom.getFullYear()));
 
-  // код для задачи №2 писать здесь
+  let monthlyPayment = creditSum * (rateCoefficient + (rateCoefficient / (((1 + rateCoefficient) ** creditDate) - 1)));
 
+  totalAmount = (monthlyPayment * creditDate).toFixed(2);
   return totalAmount;
 }
