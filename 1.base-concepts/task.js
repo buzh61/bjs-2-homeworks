@@ -20,8 +20,8 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   let totalAmount;
   let dateFrom = new Date();
   let dateTo = new Date(date);
-  let rateCoefficient = (percent / 12) / 100;
-  const creditSum = amount - contribution;
+  let rateCoefficient = (parseInt(percent) / 12) / 100;
+  const creditSum = parseInt(amount) - parseInt(contribution);
   const creditDate = dateTo.getMonth() - dateFrom.getMonth() + 
   (12 * (dateTo.getFullYear() - dateFrom.getFullYear()));
 
