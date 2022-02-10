@@ -27,6 +27,6 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
   let monthlyPayment = creditSum * (rateCoefficient + (rateCoefficient / (((1 + rateCoefficient) ** creditDate) - 1)));
 
-  totalAmount = (monthlyPayment * creditDate).toFixed(2);
+  totalAmount = Number((monthlyPayment * creditDate).toFixed(2));
   return totalAmount;
 }
