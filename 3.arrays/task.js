@@ -1,15 +1,19 @@
 function compareArrays(arr1, arr2) {
-  let result;
+    let result;
 
-  // Ваш код
+    if (arr1.length === arr2.length && arr1.every((elem, index) => arr2[index] === elem)) {
+        result = true;
+    } else {
+        result = false;
+    }
 
-  return result; // boolean
+    return result;
 }
 
 function advancedFilter(arr) {
-  let resultArr;
+    let resultArr;
 
-  // Ваш код
+    // Ваш код
 
-  return resultArr; // array
+    return resultArr; // array
 }
