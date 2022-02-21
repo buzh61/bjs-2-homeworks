@@ -1,5 +1,4 @@
-class PrintEditionItem {
-	        	
+class PrintEditionItem {        	
 	constructor(name, releaseDate, pagesCount) {
 		this.name = name;
 		this.releaseDate = releaseDate;
@@ -63,5 +62,40 @@ class DetectiveBook extends Book {
     constructor(author, name, releaseDate, pagesCount) {
         super(author, name, releaseDate, pagesCount);
         this.type = "detective";
+    }
+}
+
+class Library {
+    constructor(name) {
+        this.name = name;
+        this.books = [];
+    }
+
+    addBook(book) {
+        if (book.state >= 30) {
+            this.books.push(book);
+        }
+    }
+
+    findBookBy(type, value) {
+        let book = this.books.find(obj => obj[type] === value)
+
+        if (book === undefined){
+            return null;
+        } else {
+            return book;
+        }
+    }
+
+    giveBookByName(bookName) {
+        let book = this.books.find(obj => obj.name === bookName);
+        let bookIndex = this.books.indexOf(book);
+
+        if (book === undefined){
+            return null;
+        } else {
+            this.books.splice(bookIndex);
+            return book;
+        }
     }
 }
