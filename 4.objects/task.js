@@ -16,12 +16,25 @@ Student.prototype.addMark = function (mark) {
     }
 }
 
+// Student.prototype.addMarks = function (...mark) {
+//     this.marks.push([...mark]);
+// }
+
 Student.prototype.addMarks = function (...marks) {
-    this.marks = [...marks];
+    if (!this.marks){
+        this.marks = [...marks];
+    } else {
+        this.marks.push(...marks);      
+    }
+
 }
 
 Student.prototype.getAverage = function () {
+    if (!this.marks) {
+        return "Нет оценок"
+    } else {
     return this.marks.reduce((acc, num) => acc + num, 0) / this.marks.length;
+    }
 }
 
 Student.prototype.exclude = function (reason) {
