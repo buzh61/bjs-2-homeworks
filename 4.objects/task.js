@@ -16,17 +16,12 @@ Student.prototype.addMark = function (mark) {
     }
 }
 
-// Student.prototype.addMarks = function (...mark) {
-//     this.marks.push([...mark]);
-// }
-
 Student.prototype.addMarks = function (...marks) {
     if (!this.marks){
         this.marks = [...marks];
     } else {
         this.marks.push(...marks);      
     }
-
 }
 
 Student.prototype.getAverage = function () {
