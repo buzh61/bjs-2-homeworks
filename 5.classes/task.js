@@ -99,3 +99,47 @@ class Library {
         }
     }
 }
+
+class Student {
+    constructor(name) {
+        this.name = name;
+        this.marks = [];
+    }
+
+    addMark(mark, course){
+        let gradeBook = {
+            mark: mark,
+            course: course,
+        }
+
+        if (mark < 1 || mark > 5) {
+            return "Ошибка, оценка должна быть числом от 1 до 5"
+        } else{
+            this.marks.push(gradeBook);
+        }
+    }
+
+    getAverageBySubject(course){
+        if (this.marks.find(obj => obj.course === course)){
+            let courseMarks = this.marks.filter(obj => obj.course === course).map(obj => obj.mark);
+
+            return courseMarks.reduce((acc, num) => acc + num, 0) / courseMarks.length;
+        } else {
+            return "Несуществующий предмет";
+        }
+    }
+
+    getAverage() {
+        let coursesMarks = this.marks.filter(obj => obj.course).map(obj => obj.mark);
+
+        if (coursesMarks.length == 0){
+            return "У студента нет оценок"
+        } else {
+            return coursesMarks.reduce((acc, num) => acc + num, 0) / coursesMarks.length;
+        }
+    }
+
+    exclude(reason){
+        return reason;
+    }
+}
