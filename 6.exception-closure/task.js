@@ -7,6 +7,15 @@ function parseCount(value) {
     }
 }
 
+
+
 parseCount();
     
-    
+function validateCount(value) {
+    try {
+        return parseCount(value);
+    } catch (parseError){
+        return parseError;
+    }
+
+}
