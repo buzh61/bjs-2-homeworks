@@ -39,25 +39,13 @@ class Triangle {
 
 }
 
-class fakeTriangle {
-    constructor(a, b, c) {
-        this.a = a;
-        this.a = b;
-        this.a = c;
-    }
-
-    getPerimeter(){
-        return "Ошибка! Треугольник не существует"
-    }
-    getArea(){
-        return "Ошибка! Треугольник не существует"
-    }
-}
-
 function getTriangle(a, b, c){
     try {
         return new Triangle(a, b, c);
     } catch {
-        return new fakeTriangle(a, b, c);
+        return {
+            getPerimeter: () => "Ошибка! Треугольник не существует",
+            getArea: () => "Ошибка! Треугольник не существует",
+          }
     }
 }
