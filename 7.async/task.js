@@ -12,17 +12,17 @@ class AlarmClock {
             console.error('Такой ID уже есть');
             return
         }
-        return this.alarmCollection.push({
-            id: id,
-            time: time,
-            callback: callback,
-        })
+        return this.alarmCollection.push({id, time, callback})
     }
 
     removeClock(id) {
-        let searchAlarmById = this.alarmCollection.filter((item) => item.id === id);
+        let searchAlarmById = this.alarmCollection.find((item) => item.id === id);
 
-        this.alarmCollection.splice(this.alarmCollection.indexOf(searchAlarmById));
+        if (searchAlarmById !== undefined) {
+            this.alarmCollection.splice(this.alarmCollection.indexOf(searchAlarmById), 1)
+        }
+
+        
 
         if (searchAlarmById === undefined) {
             return false
@@ -39,25 +39,22 @@ class AlarmClock {
 
         let checkClock = (alarm) => {
             if (this.getCurrentFormattedTime() === alarm.time) {
-                callback()
+                return this.callback
             }
         }
 
         if (this.timerId === null) {
             setInterval(() => {
-                for (alarm in this.alarmCollection){
-                    checkClock(alarm)  
-                }
-                this.timerId = this.alarmCollection.time
-                return this.timerId;
-            }, 500) //Возможно убрать время?
-            
+                this.alarmCollection.forEach(alarm => checkClock(alarm));
+                this.timerId = alarm.id;
+            }, 1000)
         }
     }
 
     stop() {
         if (this.timerId !== null) {
             clearInterval(this.timerId);
+            this.timerId = null;
         }
     }
 
@@ -66,7 +63,7 @@ class AlarmClock {
     }
 
     clearAlarms() {
-        stop();
-        return this.alarmCollection = [];
+        this.stop();
+        this.alarmCollection = [];
     }
 }
