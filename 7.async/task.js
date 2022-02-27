@@ -18,16 +18,11 @@ class AlarmClock {
     removeClock(id) {
         let searchAlarmById = this.alarmCollection.find((item) => item.id === id);
 
-        if (searchAlarmById !== undefined) {
+        if (searchAlarmById) {
             this.alarmCollection.splice(this.alarmCollection.indexOf(searchAlarmById), 1)
-        }
-
-        
-
-        if (searchAlarmById === undefined) {
-            return false
+            return true;
         } else {
-            return true
+            return false;
         }
     }
 
@@ -39,15 +34,13 @@ class AlarmClock {
 
         let checkClock = (alarm) => {
             if (this.getCurrentFormattedTime() === alarm.time) {
-                return this.callback
+                alarm.callback();
             }
         }
 
         if (this.timerId === null) {
-            setInterval(() => {
+            this.timerId = setInterval(() => {
                 this.alarmCollection.forEach(alarm => checkClock(alarm))
-                this.timerId = alarm.id
-                return this.timerId;
             }, 1000)
         }
     }
