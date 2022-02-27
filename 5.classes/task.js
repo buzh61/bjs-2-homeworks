@@ -94,7 +94,7 @@ class Library {
         if (book === undefined){
             return null;
         } else {
-            this.books.splice(bookIndex);
+            this.books.splice(bookIndex, 1);
             return book;
         }
     }
