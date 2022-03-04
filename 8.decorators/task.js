@@ -8,46 +8,64 @@ function cachingDecoratorNew(func) {
         if (idx !== -1) {
             console.log('Из кэша: ' + cache.map(item => item.value));
             return 'Из кэша: ' + cache.map(item => item.value);
-        } else {
-            
-            let result = func(...args);
-            cache.push({
-                        "hash": hash, 
-                        "value": result,
-                    });
-            
-            if (cache.length > 5) {
-                cache.shift();
-            }
-            
-            console.log('Вычисляем: ' + result);
-            return 'Вычисляем: ' + result;  
         }
+            
+        let result = func(...args);
+        cache.push({
+                    "hash": hash, 
+                    "value": result,
+                });
+        
+        if (cache.length > 5) {
+            cache.shift();
+        }
+        
+        console.log('Вычисляем: ' + result);
+        return 'Вычисляем: ' + result;  
     }
-
     return wrapper;
-
 }
 
 
 function debounceDecoratorNew(func, ms) {
     let timeout;
-    let flag = false; 
-  
+    let flag = false ;
+
     function wrapper(...args){
+        if (flag === false) {
+            func(...args);
+            flag = true;
+            timeout = setTimeout(() => {func(...args), ms});
+        } else {
+            timeout = setTimeout(() => {func(...args), ms});
+            flag = false;
+        }
+        clearTimeout(timeout);
+    }
+    return wrapper;
+}
+
+
+function debounceDecorator2(func, ms) {
+    let timeout;
+    let flag = false ;
+    
+    function wrapper(...args){
+        wrapper.count = 0;
+        console.log(wrapper.count);
         if (flag === false){
             flag = true;
             timeout = setTimeout(() => {
                 func(...args);
-                flag = false;
+                wrapper.count =+ 1;
             }, ms);
-
+            flag = false;
+            
         } else {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func(...args), ms);
-
+            timeout = setTimeout(() => {func(...args), ms});
+            flag = false;
         }
-
+        clearTimeout(timeout);
     }
     return wrapper;
 }
